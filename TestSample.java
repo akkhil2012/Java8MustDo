@@ -4,7 +4,7 @@ import java.util.Spliterator;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
-public class TestSample {
+public class SimpleStreamSpliter {
 
     public static void main(String[] args) {
 
