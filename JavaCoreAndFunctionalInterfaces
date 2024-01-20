@@ -1,0 +1,90 @@
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
+import java.util.function.Supplier;
+
+public class JavaCore {
+    public static void main(String args[]) {
+       /* interface1 interface1 = new ChildClass();
+        interface1.test();
+        System.out.println(" from default>>>> " + interface1.testDefault());
+        System.out.println(" from default second >>>> " + interface1.testDefaultSec());*/
+
+        testFunctionalInter testFunctionalInter
+                = ((a, b) -> a * b);
+        testFunctionalInter.testMulti(10, 20);
+
+        System.out.println(" FUnctional In: " + testFunctionalInter.testMulti(10, 20));
+
+
+        //Predicate,
+        Predicate<Integer> isEven = num -> num % 2 == 0;
+        List<Integer> list = List.of(1, 2, 3, 4, 5);
+        list.stream()
+                .filter(isEven)
+                .forEach(System.out::println);
+
+        // Function, Consumer, and Supplier
+
+
+        //Consumer
+        Consumer<String> consumer = data -> System.out.println(" Data Consumed is .. " + data);
+        List<String> fruits = Arrays.asList("apple", "banana", "orange", "grape");
+
+        fruits.stream().forEach(consumer);
+
+
+        // Supplier
+        Supplier<AtomicInteger> supplier = () -> new AtomicInteger();
+
+        System.out.println(" random key is-----> " + supplier.get());
+
+
+    }
+}
+
+
+//Predicate, Function, Consumer, and Supplier
+
+
+interface testFunctionalInter {
+
+    int testMulti(int a, int b);
+}
+
+interface interface1 {
+    void test();
+
+    default int testDefault() {
+        return 111;
+    }
+
+    default int testDefaultSec() {
+        return 222;
+    }
+
+
+    static String init(String pass) {
+        String password = "akkhil";
+        return password;
+    }
+}
+
+
+class ChildClass implements interface1 {
+    @Override
+    public void test() {
+
+        String password = interface1.init("");
+        System.out.println("pass-word is " + password);
+
+        //System.out.println(" In child class....................");
+        //  testDefault();
+
+    }
+
+
+}
