@@ -1,0 +1,41 @@
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Stream;
+
+public class Java11Features {
+
+    public static void main(String args[]) {
+
+  // var inside lambda
+        Stream<Integer> stream = Stream.of(1,2,3,4);
+
+        stream.forEach((var v )-> System.out.println(" "+ v));
+
+
+        List<List<String>> lists = new ArrayList<>();
+        lists.add(List.of("akhil", "gupta"));
+        lists.add(List.of("test", "case"));
+
+
+
+        System.out.println(" using flat Map ");
+        lists.stream().flatMap(val -> val.stream()).forEach((val) ->System.out.println(" "+val));
+
+
+     // file System APIs
+        Path path = Paths.get("/Users/akhil/java_error_in_idea_25746.log");
+        try {
+            Files.readAllLines(path).stream()
+                    .forEach(System.out::println);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+
+    }
+}
