@@ -1,0 +1,320 @@
+ Java11_notes
+ ======'
+
+
+
+ 1. string to and from files
+
+java streams:
+https://www.youtube.com/watch?v=1Ps5F1PU72M&t=19s
+
+https://www.youtube.com/watch?v=oUdENE7ljjw&list=PLyHJZXNdCXsdeusn4OM33415DCMQ6sUKy
+
+
+Paralle stream:
+https://www.youtube.com/watch?v=J7YqYlaev7g
+
+
+
+
+Streams:
+https://www.youtube.com/watch?v=b4Atxh-a97M&list=PLyHJZXNdCXsfcMboYwGoL6wKAFPxljz5W&index=2
+
+
+
+
+ Core Java interview questions;
+
+ https://www.youtube.com/watch?v=FFfJeb8Ec6Y
+
+
+
+
+
+ref::
+==
+
+https://www.youtube.com/watch?v=UL7nGezptoI&list=PLFSWwle1rzNfte7HfgOWnLkv2wtXzVM8S
+
+
+
+ Encapsulation is the mechanism that binds together code and the data it manipulates, and keeps both safe from outside interference and misuse.
+ A class defines the structure and behavior (data and code) that will be shared by a set of objects. Each object of a given class contains the structure and behavior defined by the class, as if it were stamped out by a mold in the shape of the class. For this reason, objects are sometimes referred to as instances of a class. Thus, a class is a logical construct; an object has physical reality.
+
+ When you create a class, you will specify the code and data that constitute that class. Collectively, these elements are called members of the class
+ Specifically, the data defined by the class are referred to as member variables or instance variables. The code that operates on that data is referred to as member methods or just methods
+ In properly written Java programs, the methods define how the member variables can be used. This means that the behavior and interface of a class are defined by the methods that operate on its instance data.
+Since the purpose of a class is to encapsulate complexity, there are mechanisms for hiding the complexity of the implementation inside the class. Each method or variable in a class may be marked private or public
+
+--Encapsulation: public methods can be used to protect private data
+--Inheritence
+--Polymorphism
+
+
+javac OOPs.java
+java OOPs.java
+
+In this case, main( ) must be declared as public, since it must be called by code outside of its class when the program is started. The keyword static allows main( ) to be called without having to instantiate a particular instance of the class. This is necessary since main( ) is called by the Java Virtual Machine before any objects are made
+
+private static void main(String args[]){
+
+        System.out.println("Sample programme...ahain");
+    }
+
+    allows to compile BUT at runtime the error will be thrown.
+
+
+Any information that you need to pass to a method is received by variables specified within the set of parentheses that follow the name of the method. These variables are called parameters
+
+why do java uses String array aa parameter to main method???
+has a specific signature that allows it to accept command-line arguments.
+
+
+> typo Main() will compile correctly BUT at runtime the run will fail
+
+    public static void Main(String[] args){
+
+        for(String a : args){
+            System.out.println(" "+a);
+        }
+      }
+      
+
+
+> dependent class compiles first:
+ public static void main(String[] args){
+
+        StringTest();
+        TestInterface  testInterface;
+
+    }
+
+
+? why is interface public by default
+
+
+> abstract class methods are package private by default
+OOPs$1.class defines nested classes.
+
+
+> creating abstrcat class constructor throws cimpilation error
+?
+  AbstractClass abstractClass = new AbstractClass() {
+                void test1() {
+                    System.out.println("------> ");
+                }
+
+            };
+
+ How to call above method?????
+ 
+
+>> deep cloning means: clone the composed reference type objects as well
+
+
+? FINALIZE VS AUTOCLOSABLE?
+ WHY is finalize discouraged.
+
+
+ >
+ getClass()
+Returns the runtime class of this Object
+
+
+> equals and hashCode contract:
+===
+If two objects are equal according to the equals method, they must have the same hash code. However, the reverse is not necessarily true: two objects with the same hash code may not be equal.
+
+
+> wait notify:
+Exception in thread "main" java.lang.IllegalMonitorStateException: current thread is not owner
+	at java.base/java.lang.Object.wait(Native Method)
+	at java.base/java.lang.Object.wait(Object.java:338)
+
+
+>
+
+When using wait, it is crucial to call it within a synchronized block, as it releases the lock on the object. Otherwise, you may encounter an IllegalMonitorStateException.
+
+If you get an "IllegalMonitorStateException: current thread not owner" error, it may indicate that the wait method is being called outside a synchronized block or method. Ensure that wait is always called within a synchronized context to avoid this exception.
+
+why wait notify always in synchronized block?????
+
+
+
+
+> Compartor example>>???
+
+
+> exception
+In summary, printing the stack trace is a valuable tool during development but should be handled more gracefully in production code to avoid exposing sensitive information and provide a better user experience. Logging frameworks offer a more robust and configurable approach to handle exceptions in a production environment.
+
+
+>> Jenkov tutorial:
+=============
+
+own threadPool Impl:
+https://www.youtube.com/watch?v=ZcKt5FYd3bU&list=PLL8woMHwr36EDxjUoCzboZjedsnhLP1j4&index=12
+(MUST TO DO)
+
+
+>> streams example:
+
+fileSystem.pathToDirMapper
+                .entrySet()
+                .stream()
+                .map(
+                        entry ->{
+                            String key = entry.getKey();
+                            List<CustomFile> modList  = entry.getValue()
+                                    .stream()
+                                    .collect(Collectors.toList());
+                            return Map.entry(key,modList);
+                        })
+                .collect(Collectors.toMap(Map.Entry::getKey,Map.Entry::getValue))
+                .forEach((k,v) -> System.out.println("Kay==> "+k  +" Value ===> "+v));
+
+
+
+>>
+For primitive types, Java is pass-by-value.
+For objects, Java is pass-by-value, but you're passing the reference to the object by value.
+
+
+>>
+newFixedThreadPool Vs newCacheThreadPool
+=====
+
+Choosing Between Fixed and Cached Thread Pools:
+FixedThreadPool: Use when you have a known number of tasks and want to limit the maximum number of concurrently running threads.
+
+CachedThreadPool: Use when you have a variable number of tasks, and the number of threads can adjust dynamically based on the workload.
+
+It's important to choose the appropriate type of thread pool based on the characteristics of your application and the nature of the tasks you are executing. The wrong choice may lead to inefficient resource utilization or unnecessary resource consumption.
+
+
+Type of inner classws:
+ 1. 
+ Static Nested Classes:
+
+ 2. Inner class:
+    2.1 Anonymoiius class
+    2.2. member Inner class
+    2.3 Local Inner class
+    2.4 Static Nested class inside Interface
+
+
+
+
+GENERICS:
+=======
+
+
+
+
+
+Java Streams Notes"
+
+
+1.The andThen method is part of the Consumer interface, not the Stream interface. It is used to combine two consumers into a single consumer. Here's an example of how you can use andThen with streams:
+
+andThen
+
+>>>>>
+static methods cannot be overridden in java ; as are not part of instance
+
+29:25 Compile time exceptions can be handled at compile time
+31:51 FileNotFound exception is a checked exception and not a compile time exception.
+
+FileNotFound is NOT compile time/checked exception???????????????
+
+Shall we extend Exception OR RuntimeException to create own exception
+
+example of exception to catch the exceptio and wrap inside a custom exception
+
+Create custom immutab;e class with clonable reference type (Disadavantge???)
+
+
+Use char[] instead of string for password
+
+How to make a class in java having mutable reference type???
+
+CopyOnWriteArrayList; checks modcount but doesnot throws concurrent modification exception because;
+it creates a copy of collections its iterating through.
+
+>>>>>>>>>>
+
+BiFunction:
+
+https://www.youtube.com/watch?v=GADhzhK6NU0&t=2039s (** must **)
+
+https://github.dev/Java-Techie-jt/java8/blob/master/stream/BiFunctionExample.java
+
+
+Future Objects manually:
+===
+
+https://www.youtube.com/watch?v=GJ5Tx43q6KM
+
+
+
+failsafeiterator:
+CopyOnWriteArrayList
+
+
+top java8 interview questionsL
+==========
+
+Functional Interfcae:
+https://www.youtube.com/watch?v=k7fNLXoVCYg
+
+
+
+>>>>>>>>>
+
+
+
+
+
+job referalls:
+1. Refermarket: Connect with employees at your target companies and request referrals.
+
+🔗https://lnkd.in/dmgUEsD8
+
+2. Teamblind: Find anonymous company insights and hidden job openings from current employees.
+
+🔗https://www.teamblind.com/
+
+3. Refer.me Ltd Access jobs directly through company referral programs.
+
+🔗https://www.refer.me/
+
+4. adplist.org: Discover opportunities at ADP and its clients.
+
+🔗https://adplist.org/
+
+5. Referralhq.io: Apply for jobs at companies using this referral management platform.
+
+🔗https://referralhq.io/
+
+
+Type promotion:
+===
+
+https://www.youtube.com/watch?v=mrh9jBYsEpU&list=PLyHJZXNdCXscoyL5XEZoHHZ86_6h3GWE1&index=13
+
+Why completableFuture:
+ 1. multiple futures cannot be chained together
+
+ 2. cannot combine multiple futures together
+
+ MUST DO: COMPLETEABLE FUTURE:
+ https://www.youtube.com/watch?v=GJ5Tx43q6KM&t=446s
+
+ FORKJOIN POOL VS CUSTOM EXECUTORPOOL IN java completebaleFuture
+
+
+
+
+
+
